@@ -2,15 +2,16 @@ import 'dart:math';
 
 import 'package:blog_app/chatai/chatai.dart';
 import 'package:blog_app/core/common/widgets/loader.dart';
-import 'package:blog_app/core/theme/app_pallete.dart';
 import 'package:blog_app/core/utils/show_snackbar.dart';
 import 'package:blog_app/features/blog/domain/entities/blog.dart';
 import 'package:blog_app/features/blog/presentation/bloc/blog_bloc.dart';
 import 'package:blog_app/features/blog/presentation/pages/add_new_blog_page.dart';
 import 'package:blog_app/features/blog/presentation/widgets/blog_card.dart';
+import 'package:blog_app/news/news.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'news_screen.dart'; // Import NewsScreen
 
 // Main BlogPage widget
 class BlogPage extends StatefulWidget {
@@ -34,7 +35,10 @@ class _BlogPageState extends State<BlogPage> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this); // Add lifecycle observer
     _pages = [
       BlogScreen(searchController: searchController), // Blog screen with search
-      ChatAiScreen(), // ChatAi screen (implement this later)
+      ChatAiScreen(), // ChatAi screen
+      const NewsApp(),
+      // ChatAiScreen()
+      // News screen
     ];
     context.read<BlogBloc>().add(BlogFetchAllBlogs());
   }
@@ -88,6 +92,10 @@ class _BlogPageState extends State<BlogPage> with WidgetsBindingObserver {
           BottomNavigationBarItem(
             icon: Icon(Icons.chat),
             label: 'ChatAi',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.newspaper),
+            label: 'News',
           ),
         ],
       ),
