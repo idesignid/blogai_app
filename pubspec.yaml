@@ -52,6 +52,9 @@ dependencies:
   swipe_to: ^1.0.6
   http: ^1.2.2
   webview_flutter: ^4.10.0
+  carousel_slider: ^5.0.0
+  permission_handler: ^12.0.0+1
+  transparent_image: ^2.0.1
 
 dev_dependencies:
   flutter_test:

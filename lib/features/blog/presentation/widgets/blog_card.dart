@@ -20,9 +20,7 @@ class BlogCard extends StatelessWidget {
       },
       child: Container(
         height: 200,
-        margin: const EdgeInsets.all(16).copyWith(
-          bottom: 4,
-        ),
+        margin: const EdgeInsets.all(16).copyWith(bottom: 4),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: color,
@@ -32,32 +30,49 @@ class BlogCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: blog.topics
-                        .map(
-                          (e) => Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Chip(label: Text(e)),
-                          ),
-                        )
-                        .toList(),
+            // Top section flexibly occupies available space
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Horizontal list of topic chips
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: blog.topics
+                          .map(
+                            (topic) => Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 4, vertical: 2),
+                              child: Chip(label: Text(topic)),
+                            ),
+                          )
+                          .toList(),
+                    ),
                   ),
-                ),
-                Text(
-                  blog.title,
-                  style: const TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
+                  const SizedBox(height: 8),
+                  // Blog title, limited to 2 lines
+                  Text(
+                    blog.title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-            Text('${calculateReadingTime(blog.content)} min'),
+
+            // Reading time pinned to the bottom
+            Text(
+              '${calculateReadingTime(blog.content)} min read',
+              style: TextStyle(
+                color: Colors.grey[700],
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           ],
         ),
       ),
